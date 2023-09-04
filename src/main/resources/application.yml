@@ -1,0 +1,22 @@
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/web?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 155936
+
+# mybatis-plus config
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: false # 禁止大写变小写时自动添加下划线
+
+# prot config
+server:
+  port: 9989
+
+jackson:
+  property-naming-strategy: LOWER_CAMEL_CASE
+
