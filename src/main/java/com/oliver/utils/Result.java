@@ -35,16 +35,38 @@ public class Result {
         r.setMessage("失败");
         return r;
     }
-    public static Result successObeject(String message,Object obj){
-        Result r =new Result();
-        r.setSuccess(true);
-        r.setCode(ResultCode.SUCCESS);
-        r.setMessage("成功");
-        r.setData(message,obj);
-        return r;
+    public static Result successByKeyValue(String key, Object value) {
+        Result result = new Result();
+        result.code = 200;
+        result.message = "Success";
+        result.data.put(key, value);
+        return result;
+    }
+
+    public static Result errorByCodeMessage(int code, String message) {
+        Result result = new Result();
+        result.code = code;
+        result.message = message;
+        return result;
+    }
+    public static Result successString(String message) {
+        Result result = new Result();
+        result.code = 200;
+        result.message = message;
+        return result;
     }
 
 
+    public int getCode() {
+        return code;
+    }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
 
 }

@@ -3,6 +3,7 @@ package com.oliver.service;
 import com.oliver.entity.Counselors;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oliver.entity.Users;
+import com.oliver.utils.Result;
 
 /**
  * <p>
@@ -15,4 +16,7 @@ import com.oliver.entity.Users;
 public interface CounselorsService extends IService<Counselors> {
     void saveCounselors(Counselors courselors );
 
+    Result deletedCounselors(Counselors courselors );
+
+    Result updateSomeOne(Counselors counselors);
 }

@@ -33,13 +33,13 @@ public class CounselorsController {
     @PostMapping("/insert")
     public Result getInserted(@RequestBody Counselors counselors){
         if(counselors==null){
-            return Result.error();
+            return Result.errorByCodeMessage(401,"传输的数据为空");
         }else if(counselors.getName()!=null||counselors.getGender()!=null||counselors.getIntroduction()!=null){
             counselorsService.saveCounselors(counselors);
             return Result.ok();
 
         }
-        return Result.error();
+        return Result.errorByCodeMessage(402,"插入失败");
 
     }
     //查询所有咨询师的资料 limited 10
@@ -49,4 +49,25 @@ public class CounselorsController {
         return list;
     }
 
+    @PostMapping("/deletesomeone")
+    public Result deleteSomeOne(@RequestBody Counselors counselors){
+        if(counselors==null){
+            return Result.errorByCodeMessage(401,"传输的数据为null");
+        }else if(counselors.getCounselorID()!=null){
+           Result result1= counselorsService.deletedCounselors(counselors);
+            return result1;
+        }
+        return Result.errorByCodeMessage(402,"删除失败");
+
+    }
+    @PostMapping("/updatesomeone")
+    public  Result updateSomeOne(@RequestBody Counselors counselors){
+        if(counselors==null){
+            return Result.errorByCodeMessage(401,"传输的数据为null");
+        }else if(counselors.getCounselorID()!=null){
+            Result result2=counselorsService.updateSomeOne(counselors);
+            return result2;
+        }
+        return Result.errorByCodeMessage(403,"更新失败");
+    }
 }

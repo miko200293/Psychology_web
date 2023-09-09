@@ -20,3 +20,10 @@ server:
 jackson:
   property-naming-strategy: LOWER_CAMEL_CASE
 
+
+
+
+
+
+
+

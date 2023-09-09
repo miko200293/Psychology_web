@@ -1,13 +1,13 @@
 package com.oliver.controller;
 
-import cn.hutool.jwt.JWTUtil;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.oliver.entity.Users;
 import com.oliver.mapper.UsersMapper;
 import com.oliver.service.UsersService;
 import com.oliver.utils.Jwtutils;
 import com.oliver.utils.Result;
-import io.swagger.v3.oas.annotations.Parameter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,10 +71,10 @@ public class UsersController {
     @PostMapping("/register")
     public Result register(@RequestBody Users users) {
         if(users == null){
-            return Result.error();
+            return Result.errorByCodeMessage(401,"传输的数据为null");
         }
         if(users.getUsername() == null||users.getPassword()==null||users.getPhone()==null){
-            return Result.error();
+            return Result.errorByCodeMessage(401,"传输的必要数据有null");
         }
         QueryWrapper<Users> qw = new QueryWrapper<>();
         qw.eq("Username", users.getUsername());
@@ -82,19 +82,33 @@ public class UsersController {
 
         if (existingUser != null) {
             // 用户名已存在，返回错误响应。
-            return Result.error();
+            return Result.errorByCodeMessage(401,"用户名已存在");
         } else
             // 将新用户保存到数据库。
             usersService.saveUsers(users);
             return Result.ok();
 
     }
-
+    // unsubscribe 注销账户
+    @PostMapping("/unsubscribe")
+    public  Result unsubscribe(@RequestBody Users users){
+        if(users==null){
+            return Result.error();
+        }else{
+            usersMapper.deleteById(users);
+        }
+        return Result.ok();
+    }
 
     //无用测试类
     @GetMapping("/test")
     public List<Users> test(){
         List<Users> date2=usersService.getUsers();
         return date2;
+    }
+    @GetMapping("/test2")
+    public Result test2(){
+        Users users=usersMapper.selectById(8989);
+        return Result.successByKeyValue("users",users);
     }
 }

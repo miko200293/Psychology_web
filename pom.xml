@@ -68,12 +68,7 @@
             <version>3.5.3.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>2.2.15</version>
-        </dependency>
+
         <!-- shiro-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -81,13 +76,7 @@
             <version>3.1.2</version>
         </dependency>
 
-        <!-- hutool api-->
-        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.21</version>
-        </dependency>
+
 
         <!-- jwt-->
         <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
@@ -124,7 +113,7 @@
             <version>2.3.0</version>
         </dependency>
 
-
+        <!-- 大小写转换器-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -132,6 +121,7 @@
         </dependency>
 
     </dependencies>
+
 
     <build>
         <plugins>
