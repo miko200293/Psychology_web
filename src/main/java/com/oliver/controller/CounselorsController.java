@@ -20,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/counselors")
+@CrossOrigin
 public class CounselorsController {
 
 
@@ -70,4 +71,6 @@ public class CounselorsController {
         }
         return Result.errorByCodeMessage(403,"更新失败");
     }
+
+
 }

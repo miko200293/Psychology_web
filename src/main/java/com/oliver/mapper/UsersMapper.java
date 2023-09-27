@@ -2,9 +2,7 @@ package com.oliver.mapper;
 
 import com.oliver.entity.Users;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,4 +20,13 @@ public interface UsersMapper extends BaseMapper<Users> {
     public List<Users> findUsers();
     @Insert(value = "insert into Users(Username, Password, Phone, WeChatID) values (#{Username},#{Password},#{Phone},#{WeChatID})")
     void insertUsers(Users users);
+
+    @Select("select Password from Users where Username=#{Username}")
+    public String findUsersPassNameByUserName(Users users);
+
+    @Update("UPDATE Users SET Password=#{newpassword} WHERE Username=#{users.Username}")
+    void updateNewPassword(@Param("users") Users users, @Param("newpassword") String newpassword);
+
+
+
 }

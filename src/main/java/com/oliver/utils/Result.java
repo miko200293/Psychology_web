@@ -56,7 +56,12 @@ public class Result {
         return result;
     }
 
-
+    public static Result successByCodeMessage(int code, String message) {
+        Result result = new Result();
+        result.code = code;
+        result.message = message;
+        return result;
+    }
     public int getCode() {
         return code;
     }

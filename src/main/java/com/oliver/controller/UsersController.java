@@ -1,6 +1,7 @@
 package com.oliver.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.oliver.entity.Users;
 import com.oliver.mapper.UsersMapper;
@@ -99,6 +100,43 @@ public class UsersController {
         }
         return Result.ok();
     }
+
+
+    //更新用户信息(更改密码)
+    @PostMapping("/updatemypassword")
+    public Result updatemypassword(@RequestBody JSONObject requestBody) {
+        JSONObject usersJson = requestBody.getJSONObject("users");
+        String newpassword = requestBody.getString("newpassword");
+
+        if (usersJson == null ||  newpassword == null) {
+            return Result.errorByCodeMessage(400, "缺少账号或者密码");
+        } else {
+            String userName = usersJson.getString("Username");
+            String password = usersJson.getString("Password");
+            Users users = new Users();
+            users.setUsername(userName);
+            users.setPassword(password);
+            // 在这里执行更新密码的逻辑
+            Result result1= usersService.updatemypassword(users,newpassword);
+            return result1;
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //无用测试类
     @GetMapping("/test")

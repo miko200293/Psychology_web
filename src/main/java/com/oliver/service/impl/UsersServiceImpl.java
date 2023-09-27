@@ -6,6 +6,7 @@ import com.oliver.mapper.UsersMapper;
 import com.oliver.service.UsersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.oliver.utils.Jwtutils;
+import com.oliver.utils.Result;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +79,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
     }
 
+    @Override
+    public Result updatemypassword(Users users,String newpassword) {
+        String userPass = usersMapper.findUsersPassNameByUserName(users);
 
+        if(userPass ==null){
+            return Result.errorByCodeMessage(400,"用户不存在");
+        }
+        if (userPass.equals(users.getPassword()) ) {
+            usersMapper.updateNewPassword(users, newpassword);
+            return Result.successByCodeMessage(200, "修改成功");
+        } else {
+
+            return Result.errorByCodeMessage(400, "修改失败,密码错误");
+        }
+
+    }
 }

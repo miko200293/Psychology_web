@@ -2,6 +2,7 @@ package com.oliver.service;
 
 import com.oliver.entity.Users;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.oliver.utils.Result;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -25,6 +26,9 @@ public interface UsersService extends IService<Users> {
     List<Users> getUsers();
 
     void saveUsers(Users users);
+
+
+    Result updatemypassword(Users users,String newpassword);
 
 
 }

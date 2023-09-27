@@ -64,22 +64,8 @@ public class Jwtutils {
         }
         return true;
     }
-    /**
-     * 判断token是否存在与有效
-     * @param request
-     * @return
-     */
-    public static boolean checkToken(HttpServletRequest request) {
-        try {
-            String jwtToken = request.getHeader("token");
-            if(StringUtils.isEmpty(jwtToken)) return false;
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(jwtToken);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
+
+
 
 
 }
