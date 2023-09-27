@@ -30,6 +30,10 @@ public class CounselorsController {
     @Autowired
     private CounselorsMapper counselorsMapper;
 
+
+
+
+
     //管理员插入新咨询师资料
     @PostMapping("/insert")
     public Result getInserted(@RequestBody Counselors counselors){

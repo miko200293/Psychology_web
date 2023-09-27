@@ -30,7 +30,7 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, outputXmlDir)); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("counselingservices", "counselors","userreviews"); // 设置需要生成的表名
+                    builder.addInclude("recommendation"); // 设置需要生成的表名
                     builder.entityBuilder().enableLombok(); // 使用 Lombok
                     builder.controllerBuilder().enableRestStyle(); // 使用 RestController
                     builder.serviceBuilder().formatServiceFileName("%sService"); // Service 接口命名格式
