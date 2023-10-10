@@ -6,6 +6,7 @@ import com.oliver.mapper.CounselorsMapper;
 import com.oliver.service.CounselorsService;
 import com.oliver.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +30,6 @@ public class CounselorsController {
 
     @Autowired
     private CounselorsMapper counselorsMapper;
-
-
 
 
 

@@ -5,9 +5,14 @@ spring:
     url: jdbc:mysql://localhost:3306/web?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: 155936
+  data:
+    redis:
+      host: 172.17.133.105 # Redis 服务器的IP地址
+      port: 6379
+      timeout: 50000
+
 
 # mybatis-plus config
-
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
   configuration:

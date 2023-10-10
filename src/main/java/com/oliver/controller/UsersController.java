@@ -34,6 +34,7 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
 
+
     //查询所有用户资料
     @GetMapping("/user")
     public String query()  {
@@ -49,9 +50,9 @@ public class UsersController {
         String token= Jwtutils.generateToken(users.getUsername());
         Map<String,Object> date1=usersService.login(users);
         if(date1 != null){
-            return Result.ok();
+            return Result.successByCodeMessage(200,"success");
         }
-           return   Result.error();
+           return   Result.errorByCodeMessage(401,"注册失败");
 
 
     }
@@ -87,7 +88,7 @@ public class UsersController {
         } else
             // 将新用户保存到数据库。
             usersService.saveUsers(users);
-            return Result.ok();
+            return Result.successByCodeMessage(200,"Successfully");
 
     }
     // unsubscribe 注销账户
