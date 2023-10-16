@@ -32,7 +32,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     @Autowired
     private Jwtutils jwtutils;
     @Override
-    public Map<String, Object> login(Users user) {
+    public Map<String, Object>login(Users user) {
         QueryWrapper<Users>qw=new QueryWrapper<Users>();
         if(user.getUsername()!=null){
             qw.eq("Username", user.getUsername());
