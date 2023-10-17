@@ -1,6 +1,8 @@
 package com.oliver.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.oliver.entity.Users;
 import com.oliver.mapper.UsersMapper;
 import com.oliver.service.UsersService;
@@ -93,6 +95,14 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
             return Result.errorByCodeMessage(400, "修改失败,密码错误");
         }
+
+    }
+
+    @Override
+    public IPage selectAllUseers() {
+        Page<Users> page1=new Page<>(0,8);
+        IPage iPage=usersMapper.selectPage(page1,null);
+        return iPage;
 
     }
 }

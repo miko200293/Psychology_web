@@ -3,6 +3,7 @@ package com.oliver.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.oliver.entity.Users;
 import com.oliver.mapper.UsersMapper;
 import com.oliver.service.UsersService;
@@ -125,7 +126,12 @@ public class UsersController {
 
     }
 
-
+    //分页查询
+    @PostMapping("/selectAllUsers")
+    public IPage selectAllUser(){
+      IPage iPage=  usersService.selectAllUseers();
+      return iPage;
+    }
 
 
 

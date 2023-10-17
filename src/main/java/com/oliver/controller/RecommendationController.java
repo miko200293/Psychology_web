@@ -1,5 +1,7 @@
 package com.oliver.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.oliver.entity.Counselors;
 import com.oliver.entity.Recommendation;
 import com.oliver.service.RecommendationService;
@@ -27,21 +29,24 @@ public class RecommendationController {
 
     //查询所有的新闻，限制了10行
     @GetMapping("/selectall")
-        public List<Recommendation> selectAllNews(){
-        List<Recommendation> list= recommendationService.selectAllNews();
-        return list;
+        public IPage selectAllNews(){
+        IPage iPage = recommendationService.selectAllNews();
+        return iPage;
 
     }
 
     //更新最新新闻文章
     @PostMapping("/updatenews")
-    public Result updateNews(@RequestBody Recommendation recommendation1){
-        return null;
+    public Result updateNews(@RequestBody Recommendation recommendation){
+        Result result =recommendationService.updateNews(recommendation);
+        return result;
     }
 
-    @PostMapping("/deleteMapping")
+
+    @DeleteMapping("/deleteMapping")
     public Result deleteNewsByID(@RequestBody Recommendation recommendation){
-        return null;
+       Result result= recommendationService.deleteRecommendationByID(recommendation);
+        return result;
     }
 
     @PostMapping("/addNews")
@@ -50,5 +55,7 @@ public class RecommendationController {
         return result;
 
     }
+
+
 
 }

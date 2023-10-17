@@ -1,5 +1,6 @@
 package com.oliver.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.oliver.entity.Users;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oliver.utils.Result;
@@ -30,5 +31,5 @@ public interface UsersService extends IService<Users> {
 
     Result updatemypassword(Users users,String newpassword);
 
-
+    IPage selectAllUseers();
 }

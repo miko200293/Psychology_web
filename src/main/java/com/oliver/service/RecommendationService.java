@@ -1,5 +1,6 @@
 package com.oliver.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.oliver.entity.Recommendation;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oliver.utils.Result;
@@ -16,7 +17,11 @@ import java.util.List;
  */
 public interface RecommendationService extends IService<Recommendation> {
 
-    List<Recommendation> selectAllNews();
+    IPage selectAllNews();
 
     Result addsomting(Recommendation recommendation);
+
+    Result deleteRecommendationByID(Recommendation recommendation);
+
+    Result updateNews(Recommendation recommendation);
 }
