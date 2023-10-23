@@ -1,9 +1,7 @@
 package com.oliver.utils;
 
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -29,14 +27,21 @@ public class Jwtutils {
 
 
     }
-
-    public static Claims getClaimsByToken(String token){
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
-
+    public static Claims getClaimsByToken(String token) throws ExpiredJwtException, SignatureException, MalformedJwtException, UnsupportedJwtException, IllegalArgumentException {
+        try {
+            return Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException ex) {
+            // 令牌已过期
+            throw ex;
+        } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+            // 令牌不合法
+            throw ex;
+        }
     }
+
 
 
     public static <T> T getTClaimFromToken(String token, Class<T> valueType) {
@@ -58,10 +63,14 @@ public class Jwtutils {
         if(StringUtils.isEmpty(jwtToken)) return false;
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(jwtToken);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ExpiredJwtException ex) {
+
+            return false;
+        } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+
             return false;
         }
+
         return true;
     }
 

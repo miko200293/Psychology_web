@@ -103,6 +103,5 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         Page<Users> page1=new Page<>(0,8);
         IPage iPage=usersMapper.selectPage(page1,null);
         return iPage;
-
     }
 }

@@ -1,5 +1,6 @@
 package com.oliver.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.oliver.entity.Counselors;
 import com.oliver.entity.Users;
 import com.oliver.mapper.CounselorsMapper;
@@ -51,6 +52,13 @@ public class CounselorsController {
     public List<Counselors> getSelected(){
         List<Counselors> list= counselorsMapper.findCounselors();
         return list;
+    }
+
+    //查询所有的咨询师资料，分页管理一页八行
+    @PostMapping("/selectAll")
+    public IPage getSelectedPage(){
+        IPage iPage = counselorsService.selectAll();
+        return iPage;
     }
 
     @PostMapping("/deletesomeone")

@@ -10,9 +10,14 @@ import com.oliver.service.UsersService;
 import com.oliver.utils.Jwtutils;
 import com.oliver.utils.Result;
 
+import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +32,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
+@Slf4j
 public class UsersController {
 
     @Autowired
@@ -48,12 +54,13 @@ public class UsersController {
     //用户登录
     @PostMapping("/login")
         public Result login(@RequestBody Users users){
-        String token= Jwtutils.generateToken(users.getUsername());
         Map<String,Object> date1=usersService.login(users);
         if(date1 != null){
-            return Result.successByCodeMessage(200,"success");
+            Result result2= Result.successByCodeMessage(200,"登陆成功");
+            result2.setData(date1);
+            return result2;
         }
-           return   Result.errorByCodeMessage(401,"注册失败");
+           return   Result.errorByCodeMessage(401,"登录失败");
 
 
     }
@@ -66,8 +73,6 @@ public class UsersController {
             return Result.ok();
         }
         return   Result.error();
-
-
     }
     //用户注册列表
 
@@ -156,4 +161,36 @@ public class UsersController {
         Users users=usersMapper.selectById(8989);
         return Result.successByKeyValue("users",users);
     }
+
+
+    @GetMapping("/test3")
+    public ResponseEntity<String> secureResource(@RequestBody String token) {
+        Claims claims = Jwtutils.getClaimsByToken(token);
+        String Username = claims.getSubject();
+        return ResponseEntity.ok("Welcome, " + Username + "! This is a secure resource.");
+//        try {
+//            if (!Jwtutils.checkToken(token)) {
+//                // 从令牌中获取用户信息，进行后续操作
+//
+//
+//                // 根据用户名执行相应的逻辑
+//                return ResponseEntity.ok("Welcome, " + Username + "! This is a secure resource.");
+//            } else {
+//                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Invalid or expired token.");
+//            }
+//        } catch (ExpiredJwtException ex) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Token expired.");
+//        } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Invalid token.");
+//        }
+    }
+
+    @GetMapping("/test4")
+    public ResponseEntity<String> secureResource2(@RequestHeader("Authorization") String token) {
+        // 在请求头中获取令牌
+        Claims claims = Jwtutils.getClaimsByToken(token);
+        String username = claims.getSubject();
+        return ResponseEntity.ok("Welcome, " + username + "! This is a secure resource.");
+    }
+
 }

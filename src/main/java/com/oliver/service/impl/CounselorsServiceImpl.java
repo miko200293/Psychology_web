@@ -1,6 +1,8 @@
 package com.oliver.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.oliver.entity.Counselors;
 import com.oliver.entity.Users;
 import com.oliver.mapper.CounselorsMapper;
@@ -53,5 +55,12 @@ public class CounselorsServiceImpl extends ServiceImpl<CounselorsMapper, Counsel
         }
         counselorsMapper.updateById(counselors);
         return Result.successString("更新成功");
+    }
+
+    @Override
+    public IPage selectAll() {
+        Page<Counselors> page1= new Page<>(0,8);
+        IPage iPage= counselorsMapper.selectPage(page1,null);
+        return iPage;
     }
 }

@@ -1,5 +1,6 @@
 package com.oliver.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.oliver.entity.Counselors;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oliver.entity.Users;
@@ -19,4 +20,6 @@ public interface CounselorsService extends IService<Counselors> {
     Result deletedCounselors(Counselors courselors );
 
     Result updateSomeOne(Counselors counselors);
+
+    IPage  selectAll();
 }
