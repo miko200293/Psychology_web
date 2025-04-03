@@ -66,7 +66,7 @@ public class Jwtutils {
         } catch (ExpiredJwtException ex) {
 
             return false;
-        } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+        } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex ) {
 
             return false;
         }

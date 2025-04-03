@@ -6,6 +6,7 @@ import com.oliver.entity.Counselors;
 import com.oliver.entity.Recommendation;
 import com.oliver.service.RecommendationService;
 import com.oliver.utils.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,17 +23,23 @@ import java.util.List;
 @RestController
 @RequestMapping("/recommendation")
 @CrossOrigin
+@Slf4j
 public class RecommendationController {
 
     @Autowired
     private RecommendationService recommendationService;
 
     //查询所有的新闻，限制了10行
-    @GetMapping("/selectall")
-        public IPage selectAllNews(){
+    @PostMapping("/selectall")
+        public IPage selectAllNews() {
         IPage iPage = recommendationService.selectAllNews();
         return iPage;
 
+    }
+    @PostMapping("/selectone")
+        public Result selectOneNews(@RequestBody Recommendation recommendation) {
+        Result result = recommendationService.selectOneNews(recommendation);
+        return result;
     }
 
     //更新最新新闻文章

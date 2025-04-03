@@ -37,4 +37,6 @@ public class Counselors implements Serializable {
     private String Qualifications;
 
     private Integer UserID;
+
+    private String ImgURL;
 }

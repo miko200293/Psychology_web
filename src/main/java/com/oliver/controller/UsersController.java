@@ -100,12 +100,15 @@ public class UsersController {
     // unsubscribe 注销账户
     @PostMapping("/unsubscribe")
     public  Result unsubscribe(@RequestBody Users users){
-        if(users==null){
-            return Result.error();
+        QueryWrapper qw=new QueryWrapper<>();
+        qw.eq("UserID", users.getUserID());
+        List<Users> users1=usersMapper.selectList(qw);
+        if(users.getUserID()==null||users1.isEmpty()){
+            return Result.errorByCodeMessage(401,"用户id不存在");
         }else{
             usersMapper.deleteById(users);
         }
-        return Result.ok();
+        return Result.successByCodeMessage(200,"success to delete");
     }
 
 
@@ -126,6 +129,7 @@ public class UsersController {
             // 在这里执行更新密码的逻辑
             Result result1= usersService.updatemypassword(users,newpassword);
             return result1;
+
 
         }
 
@@ -191,6 +195,41 @@ public class UsersController {
         Claims claims = Jwtutils.getClaimsByToken(token);
         String username = claims.getSubject();
         return ResponseEntity.ok("Welcome, " + username + "! This is a secure resource.");
-    }
 
+//            if (!Jwtutils.checkToken(token)) {
+//                // 从令牌中获取用户信息，进行后续操作
+//
+//
+//                // 根据用户名执行相应的逻辑
+//                return ResponseEntity.ok("Welcome, " + Username + "! This is a secure resource.");
+//            } else {
+//                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Invalid or expired token.");
+//            }
+//        } catch (ExpiredJwtException ex) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Token expired.");
+//        } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Invalid token.");
+//        }
+    }
+        @GetMapping("/test5")
+        public ResponseEntity<String> secureResource3(@RequestHeader("Authorization") String token){
+            // 在请求头中获取令牌
+
+            try {
+            if (Jwtutils.checkToken(token)) {
+                // 从令牌中获取用户信息，进行后续操作
+                Claims claims = Jwtutils.getClaimsByToken(token);
+                String username = claims.getSubject();
+
+                // 根据用户名执行相应的逻辑
+                return ResponseEntity.ok("Welcome, " + username + "! This is a secure resource.");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Invalid or expired token.");
+            }
+        } catch (ExpiredJwtException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Token expired.");
+    } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: Invalid token.");
+    }
+        }
 }

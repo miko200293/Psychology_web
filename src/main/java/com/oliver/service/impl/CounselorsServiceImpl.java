@@ -12,6 +12,8 @@ import com.oliver.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -62,5 +64,61 @@ public class CounselorsServiceImpl extends ServiceImpl<CounselorsMapper, Counsel
         Page<Counselors> page1= new Page<>(0,8);
         IPage iPage= counselorsMapper.selectPage(page1,null);
         return iPage;
+    }
+
+    //unusefully
+    @Override
+    public Result login(Counselors courselors) {
+        QueryWrapper qw= new QueryWrapper<>();
+        qw.eq("CounselorID",courselors.getCounselorID());
+        List<Counselors> list1=counselorsMapper.selectList(qw);
+        if(list1.isEmpty()){
+            return null;
+        }
+        return null;
+    }
+
+    @Override
+    public Result searchSomeOne(Counselors counselors) {
+        QueryWrapper qw= new  QueryWrapper<>();
+        qw.eq("Name",counselors.getName());
+        List<Counselors>list1=counselorsMapper.selectList(qw);
+        if(list1.isEmpty()){
+            return null;
+        }
+        return Result.successByKeyValue("success",list1);
+    }
+
+    @Override
+    public Result searchByNumber(Counselors counselors) {
+        QueryWrapper qw= new  QueryWrapper<>();
+        qw.eq("Title",counselors.getTitle());
+        List<Counselors>list1=counselorsMapper.selectList(qw);
+        if(list1.isEmpty()){
+            return null;
+        }
+        return Result.successByKeyValue("success",list1);
+    }
+
+    @Override
+    public Result searchByNumber1(Counselors counselors) {
+        QueryWrapper qw= new  QueryWrapper<>();
+        qw.eq("Title",counselors.getTitle());
+        List<Counselors>list1=counselorsMapper.selectList(qw);
+        if(list1.isEmpty()){
+            return null;
+        }
+        return Result.successByKeyValue("success",list1);
+    }
+
+    @Override
+    public Result serarchById(Counselors counselors) {
+        QueryWrapper qw= new  QueryWrapper<>();
+        qw.eq("CounselorID",counselors.getCounselorID());
+        List<Counselors>list1=counselorsMapper.selectList(qw);
+        if(list1.isEmpty()){
+            return null;
+        }
+        return Result.successByKeyValue("success",list1);
     }
 }

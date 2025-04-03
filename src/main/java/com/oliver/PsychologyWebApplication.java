@@ -17,7 +17,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @MapperScan("com.oliver.mapper")
 //禁用Security的自动配置
 @SpringBootApplication(exclude={SecurityAutoConfiguration.class})
-@ConfigurationPropertiesScan(basePackages = {"com.oliver.config"})
+@ConfigurationPropertiesScan(basePackages = {"com.oliver.config"}   )
+//@ComponentScan("com.oliver.interceptors")
 public class PsychologyWebApplication  {
 
     public static void main(String[] args) {

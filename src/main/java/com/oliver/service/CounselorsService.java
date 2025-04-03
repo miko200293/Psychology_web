@@ -22,4 +22,16 @@ public interface CounselorsService extends IService<Counselors> {
     Result updateSomeOne(Counselors counselors);
 
     IPage  selectAll();
+
+    Result login(Counselors courselors);
+
+    Result searchSomeOne(Counselors counselors);
+
+
+    Result searchByNumber(Counselors counselors);
+
+
+    Result searchByNumber1(Counselors counselors);
+
+    Result serarchById(Counselors counselors);
 }

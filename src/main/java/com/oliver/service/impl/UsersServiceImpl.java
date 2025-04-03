@@ -38,7 +38,6 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         QueryWrapper<Users>qw=new QueryWrapper<Users>();
         if(user.getUsername()!=null){
             qw.eq("Username", user.getUsername());
-
         }
         if(user.getPassword()!=null){
             qw.eq("Password", user.getPassword());
